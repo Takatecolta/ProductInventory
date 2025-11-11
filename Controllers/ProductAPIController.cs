@@ -1,0 +1,49 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using ProductInventory.ViewModel;
+using ProductInventoryMVC.Services;
+
+namespace ProductInventoryMVC.Controllers
+{
+    public class ProductController : Controller
+    {
+        private readonly ApiService _apiService;
+        public ProductController(ApiService apiService)
+        {
+            _apiService = apiService;
+        }
+        //商品一覧を表示するためのメソッド
+        public async Task<IActionResult> Index()
+        {
+            var  products = await _apiService.GetProductsAsync(); 
+            var vm = new ProductListViewModel { Products = products }; return View(vm);
+        }
+
+        //新しい商品を作成するためのフォーム画面を返すメソッド
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //入力された情報を登録するメソッド
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductInventory.Models.ProductModel product)
+        {
+            if (!ModelState.IsValid) return View(product);
+            await _apiService.CreateProductAsync(product); return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _apiService.GetProductAsync(id); return View(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id,ProductInventory.Models.ProductModel product)
+        {
+            if (!ModelState.IsValid) return View(product);
+            await _apiService.UpdateProductAsync(id, product); return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _apiService.DeleteProductAsync(id); return RedirectToAction(nameof(Index));
+        }
+    }
+}

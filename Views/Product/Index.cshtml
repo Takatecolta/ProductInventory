@@ -1,0 +1,27 @@
+﻿@model ProductInventory.ViewModel.ProductListViewModel
+<h2>商品一覧</h2>
+<table>
+    <thead>
+        <tr>
+            <th>商品コード</th>
+            <th>商品名</th>
+            <th>単価</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.ProductCode</td>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Product", new { id = item.ProductId })">編集</a> |
+                    <a href="@Url.Action("Delete", "Product", new { id = item.ProductId })">削除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("Create", "Product")">新規登録</a>
