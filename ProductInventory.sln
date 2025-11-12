@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventory", "ProductInventory.csproj", "{2918D5BD-0171-454A-AD76-2EA3B4D8A9ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductAPI", "..\ProductAPI\ProductAPI\ProductAPI.csproj", "{61C98A32-D4CC-4565-9DC7-ED2852DDFBA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2918D5BD-0171-454A-AD76-2EA3B4D8A9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2918D5BD-0171-454A-AD76-2EA3B4D8A9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2918D5BD-0171-454A-AD76-2EA3B4D8A9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C98A32-D4CC-4565-9DC7-ED2852DDFBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C98A32-D4CC-4565-9DC7-ED2852DDFBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C98A32-D4CC-4565-9DC7-ED2852DDFBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C98A32-D4CC-4565-9DC7-ED2852DDFBA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

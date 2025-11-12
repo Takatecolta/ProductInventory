@@ -9,5 +9,10 @@ namespace ProductInventoryMVC.Models
         public string ProductName { get; set; } // 画面表示用
         public int Quantity { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public static implicit operator Task<object>(InventoryModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

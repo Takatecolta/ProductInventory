@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ProductInventory.Models.ProductModel
+
+<link rel="stylesheet" href="~/css/product-edit.css" />
+
+<div class="edit-container">
+    <h2>商品情報の編集</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ProductId" />
+
+        <div class="form-group">
+            <label asp-for="ProductCode"></label>
+            <input asp-for="ProductCode" class="form-control" readonly />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ProductName"></label>
+            <input asp-for="ProductName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="UnitPrice"></label>
+            <input asp-for="UnitPrice" class="form-control" />
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn-save">💾 更新</button>
+            <a asp-action="Index" class="btn-cancel">↩ キャンセル</a>
+        </div>
+    </form>
+</div>

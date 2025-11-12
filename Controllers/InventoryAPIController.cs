@@ -18,7 +18,7 @@ namespace ProductInventoryMVC.Controllers
         }
         public async Task<IActionResult> Edit(int id)
         {
-            var inventory = await _apiService.GetInventoryAsync(id); return View(inventory);
+            var inventory = await _apiService.GetInventoriesByProductAsync(id); return View(inventory);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductInventoryMVC.Models.InventoryModel inventory)
