@@ -1,0 +1,116 @@
+﻿/* ===== 全体 ===== */
+body {
+    background-color: #f5f6fa;
+    font-family: 'Inter', 'Segoe UI', 'Noto Sans JP', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 40px;
+}
+
+/* ===== ヘッダー部分 ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+    .header h2 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header input[type="text"] {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 12px;
+    outline: none;
+    transition: 0.2s;
+}
+
+    .header input[type="text"]:focus {
+        border-color: #4a90e2;
+    }
+
+/* ===== ボタン ===== */
+.add-button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+    .add-button:hover {
+        background-color: #3c7cc4;
+    }
+
+/* ===== テーブルカード ===== */
+.table-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* ===== テーブル ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f0f2f5;
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+tbody tr:hover {
+    background-color: #f9fafc;
+}
+
+/* ===== アクションボタン ===== */
+a.action-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 6px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.2s ease;
+}
+
+    a.action-btn.edit {
+        background-color: #4a90e2;
+    }
+
+    a.action-btn.delete {
+        background-color: #e57373;
+    }
+
+    a.action-btn:hover {
+        filter: brightness(1.1);
+    }

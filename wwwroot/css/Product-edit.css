@@ -1,0 +1,87 @@
+﻿/* ================================
+   Product Edit Page Style
+================================ */
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f5f7;
+    margin: 0;
+    padding: 40px;
+}
+
+.edit-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+    .form-control:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 5px rgba(0, 120, 215, 0.3);
+        outline: none;
+    }
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-save {
+    background-color: #0078d7;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .btn-save:hover {
+        background-color: #005ea2;
+    }
+
+.btn-cancel {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 10px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .btn-cancel:hover {
+        background-color: #d0d0d0;
+    }

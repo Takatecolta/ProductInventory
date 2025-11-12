@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "新しいプロファイル",
+    "Projects": [
+      {
+        "Path": "ProductInventory.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "..\\ProductAPI\\ProductAPI\\ProductAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

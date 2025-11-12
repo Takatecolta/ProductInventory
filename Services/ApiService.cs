@@ -57,11 +57,12 @@ namespace ProductInventoryMVC.Services
             return await _httpClient.GetFromJsonAsync<List<Models.InventoryModel>>("/api/inventories");
         }
 
-        //特に決めていないかも
-        public async Task<Models.InventoryModel> GetInventoryAsync(int id)
+        //商品IDに紐づいた在庫を取得する
+        public async Task<List<Models.InventoryModel>> GetInventoriesByProductAsync(int productId)
         {
-            return await _httpClient.GetFromJsonAsync<Models.InventoryModel>($"/api/inventories/{id}");
+            return await _httpClient.GetFromJsonAsync<List<Models.InventoryModel>>($"/api/inventories/by-product/{productId}");
         }
+
 
         //特定の在庫レコードを更新する
         public async Task<bool> UpdateInventoryAsync(int id, Models.InventoryModel inventory)

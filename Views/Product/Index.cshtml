@@ -1,27 +1,41 @@
 ﻿@model ProductInventory.ViewModel.ProductListViewModel
-<h2>商品一覧</h2>
-<table>
-    <thead>
-        <tr>
-            <th>商品コード</th>
-            <th>商品名</th>
-            <th>単価</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Products)
-        {
+<link rel="stylesheet" href="~/css/product.css" />
+
+<div class="header">
+    <h2>📦 商品一覧</h2>
+    <div class="header-actions">
+        <input type="text" placeholder="商品名で検索..." />
+        <a href="@Url.Action("Create", "Product")" class="add-button">＋ 新規登録</a>
+    </div>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
             <tr>
-                <td>@item.ProductCode</td>
-                <td>@item.ProductName</td>
-                <td>@item.UnitPrice</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Product", new { id = item.ProductId })">編集</a> |
-                    <a href="@Url.Action("Delete", "Product", new { id = item.ProductId })">削除</a>
-                </td>
+                <th>商品コード</th>
+                <th>商品名</th>
+                <th>単価</th>
+                <th>操作</th>
             </tr>
-        }
-    </tbody>
-</table>
-<a href="@Url.Action("Create", "Product")">新規登録</a>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.ProductCode</td>
+                    <td>@item.ProductName</td>
+                    <td>¥@item.UnitPrice.ToString("N0")</td>
+                    <td>
+                        <a class="action-btn edit" href="@Url.Action("Edit", "Product", new { id = item.ProductId })">編集</a>
+                        <a class="action-btn delete" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"
+                           onclick="return confirm('本当に削除しますか？この商品に紐づく在庫も削除されます。');">
+                            削除
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
