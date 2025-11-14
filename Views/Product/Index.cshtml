@@ -1,6 +1,29 @@
 ﻿@model ProductInventory.ViewModel.ProductListViewModel
 <link rel="stylesheet" href="~/css/product.css" />
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="flashMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!-- jQuery (CDN) を読み込む -->
+@section Scripts {
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#flashMessage").fadeOut('slow');
+            }, 3000); // 3秒でフェードアウト
+        });
+    </script>
+}
+
 <div class="header">
     <h2>📦 商品一覧</h2>
     <div class="header-actions">
@@ -16,6 +39,7 @@
                 <th>商品コード</th>
                 <th>商品名</th>
                 <th>単価</th>
+                <th>在庫</th> <!-- 追加 -->
                 <th>操作</th>
             </tr>
         </thead>
@@ -26,16 +50,17 @@
                     <td>@item.ProductCode</td>
                     <td>@item.ProductName</td>
                     <td>¥@item.UnitPrice.ToString("N0")</td>
+                    <td>@item.Stock</td> <!-- 在庫を表示 -->
                     <td>
                         <a class="action-btn edit" href="@Url.Action("Edit", "Product", new { id = item.ProductId })">編集</a>
                         <a class="action-btn delete" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"
                            onclick="return confirm('本当に削除しますか？この商品に紐づく在庫も削除されます。');">
                             削除
                         </a>
-
                     </td>
                 </tr>
             }
         </tbody>
+
     </table>
 </div>

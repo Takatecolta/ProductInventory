@@ -11,15 +11,16 @@ namespace ProductInventoryMVC.Controllers
         {
             _apiService = apiService;
         }
-        public async Task<IActionResult> Index()
-        {
-            var inventories = await _apiService.GetInventoriesAsync(); 
-            var vm = new InventoryListViewModel { Inventories = inventories }; return View(vm);
-        }
-        public async Task<IActionResult> Edit(int id)
-        {
-            var inventory = await _apiService.GetInventoriesByProductAsync(id); return View(inventory);
-        }
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    var inventories = await _apiService.GetInventoriesAsync(); 
+        //    var vm = new InventoryListViewModel { Inventories = inventories }; return View(vm);
+        //}
+        //public async Task<IActionResult> Edit()
+        //{
+        //    var inventory = await _apiService.GetInventoriesByProductAsync(); return View(inventory);
+        //}
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductInventoryMVC.Models.InventoryModel inventory)
         {
