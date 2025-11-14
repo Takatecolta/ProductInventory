@@ -1,4 +1,5 @@
-﻿using ProductInventory.Models;
+﻿using MySystem.Dtos;
+using ProductInventory.Models;
 using ProductInventoryMVC.Models;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,9 +19,11 @@ namespace ProductInventoryMVC.Services
 
         // Product CRUD
         //商品情報のリストを取得する
-        public async Task<List<ProductInventory.Models.ProductModel>> GetProductsAsync()
+        public async Task<List<ProductWithStockDto>> GetProductsAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<ProductInventory.Models.ProductModel>>("/api/products");
+            // APIのDTOに合わせてデシリアライズ
+            var products = await _httpClient.GetFromJsonAsync<List<ProductWithStockDto>>("/api/products");
+            return products ?? new List<ProductWithStockDto>();
         }
 
         //商品情報を取得する
@@ -52,16 +55,16 @@ namespace ProductInventoryMVC.Services
 
         // Inventory CRUD
         //在庫一覧を取得する
-        public async Task<List<Models.InventoryModel>> GetInventoriesAsync()
+        public async Task<List<Models.InventoryModel>> GetInventoriesAsync(int productId)
         {
             return await _httpClient.GetFromJsonAsync<List<Models.InventoryModel>>("/api/inventories");
         }
 
-        //商品IDに紐づいた在庫を取得する
-        public async Task<List<Models.InventoryModel>> GetInventoriesByProductAsync(int productId)
-        {
-            return await _httpClient.GetFromJsonAsync<List<Models.InventoryModel>>($"/api/inventories/by-product/{productId}");
-        }
+        ////商品IDに紐づいた在庫を取得する
+        //public async Task<List<Models.InventoryModel>> GetInventoriesByProductAsync()
+        //{
+        //    return await _httpClient.GetFromJsonAsync<List<Models.InventoryModel>>($"/api/inventories/by-product/{productId}");
+        //}
 
 
         //特定の在庫レコードを更新する

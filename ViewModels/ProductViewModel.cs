@@ -1,10 +1,12 @@
-﻿using ProductInventory.Models;
+﻿using MySystem.Dtos;
+using ProductInventory.Models;
 
 namespace ProductInventory.ViewModel
 {
     public class ProductListViewModel
     {
-        public List<ProductModel> Products { get; set; }
+        // APIのDTOをそのまま保持
+        public List<ProductWithStockDto> Products { get; set; } = new();
     }
     public class ProductDetailViewModel
     {
