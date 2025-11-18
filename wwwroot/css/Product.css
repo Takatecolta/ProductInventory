@@ -4,7 +4,7 @@ body {
     font-family: 'Inter', 'Segoe UI', 'Noto Sans JP', sans-serif;
     color: #333;
     margin: 0;
-    padding: 40px;
+    padding: 45px;
 }
 
 /* ===== ヘッダー部分 ===== */
@@ -92,7 +92,7 @@ tbody tr:hover {
 }
 
 /* ===== アクションボタン ===== */
-a.action-btn {
+/*a.action-btn {
     display: inline-block;
     padding: 6px 12px;
     margin-right: 6px;
@@ -113,4 +113,189 @@ a.action-btn {
 
     a.action-btn:hover {
         filter: brightness(1.1);
+    }*/
+
+/* ================================
+   Modern Pagination (Pro Style)
+   ================================ */
+
+.pagination-container {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pagination-modern {
+    display: inline-flex;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .pagination-modern li {
+        display: inline-block;
+    }
+
+.page-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    color: #24292f;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* Hover */
+    .page-btn:hover {
+        background: #f3f4f6;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        border-color: #b9c1c9;
+    }
+
+/* Active Page */
+.pagination-modern li.active .page-btn {
+    background: #0069ff;
+    color: white;
+    border-color: #0069ff;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,105,255,0.4);
+}
+
+/* Disabled */
+.pagination-modern li.disabled .page-btn {
+    opacity: 0.4;
+    cursor: default;
+    background: #e9ecef;
+    border-color: #d0d7de;
+}
+
+/* ======================================================
+   プロ仕様のアクションボタンデザイン
+   元のボタン部分と置き換えてください（他は変更不要）
+   ====================================================== */
+a.action-btn {
+    display: inline-block;
+    padding: 8px 14px; /* 少し大きめ・見やすいボタン */
+    margin-right: 8px;
+    font-size: 0.85rem;
+    border-radius: 14px; /* pill（丸い）デザイン */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+}
+
+    /* 編集ボタン（青） */
+    a.action-btn.edit {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+        a.action-btn.edit:hover {
+            background: #0069d9;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+        }
+
+    /* 在庫編集ボタン（オレンジ）
+   ※ これは <button> の場合もあるので button.action-btn にも適用 */
+    a.action-btn.inventory-edit,
+    button.action-btn.inventory-edit {
+        background: #ff9800;
+        color: white;
+        border-color: #ff9800;
+    }
+
+        a.action-btn.inventory-edit:hover,
+        button.action-btn.inventory-edit:hover {
+            background: #fb8c00;
+            box-shadow: 0 3px 8px rgba(255, 152, 0, 0.35);
+        }
+
+    /* 削除ボタン（赤） */
+    a.action-btn.delete {
+        background: #e63946;
+        color: white;
+        border-color: #e63946;
+    }
+
+        a.action-btn.delete:hover {
+            background: #d62828;
+            box-shadow: 0 3px 8px rgba(230, 57, 70, 0.35);
+        }
+
+    /* クリック時のアニメーション */
+    a.action-btn:active,
+    button.action-btn:active {
+        transform: scale(0.97);
+    }
+
+
+/* ======================================================
+   プロ仕様ボタンデザイン for .btn-pro 系
+   他の UI・レイアウトは一切変更しません
+   ====================================================== */
+
+/* 基本ボタンスタイル */
+.btn-pro {
+    display: inline-block;
+    padding: 8px 14px;
+    margin-right: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+}
+
+    /* クリック時の微小アニメーション */
+    .btn-pro:active {
+        transform: scale(0.96);
+    }
+
+/* ==========================
+   編集ボタン（青）
+   ========================== */
+.btn-edit {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-edit:hover {
+        background: #0069d9;
+        box-shadow: 0 3px 6px rgba(0, 123, 255, 0.35);
+    }
+
+/* ==========================
+   在庫ボタン（オレンジ）
+   ========================== */
+.btn-stock {
+    background: #ff9800;
+    border-color: #ff9800;
+}
+
+    .btn-stock:hover {
+        background: #fb8c00;
+        box-shadow: 0 3px 6px rgba(255, 152, 0, 0.35);
+    }
+
+/* ==========================
+   削除ボタン（赤）
+   ========================== */
+.btn-delete {
+    background: #e63946;
+    border-color: #e63946;
+}
+
+    .btn-delete:hover {
+        background: #d62828;
+        box-shadow: 0 3px 6px rgba(230, 57, 70, 0.4);
     }

@@ -85,3 +85,8 @@ label {
     .btn-cancel:hover {
         background-color: #d0d0d0;
     }
+/* 読み取り専用の入力欄をグレーアウト */
+input[readonly] {
+    background-color: #e9ecef; /* 薄いグレー */
+    cursor: not-allowed;
+}

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MySystem.Dtos;
 using ProductInventory.ViewModel;
 using ProductInventoryMVC.Services;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace ProductInventoryMVC.Controllers
 {
@@ -13,13 +16,27 @@ namespace ProductInventoryMVC.Controllers
             _apiService = apiService;
         }
         //商品一覧を表示するためのメソッド
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+
+            //１ページに表示する件数
+            int pageSize = 10;
+
+            //ページがnullなら1ページ目
+            int pageNumber = page ?? 1;
+            if (pageNumber < 1) pageNumber = 1;
+
+            // APIから全商品のリストを取得
             ////商品ごとの在庫を取得
             var products = await _apiService.GetProductsAsync(); 
-            var vm = new ProductListViewModel 
+
+            //ページング処理
+            var pagedProducts = products.ToPagedList(pageNumber, pageSize);
+
+            ProductListViewModel vm = new ProductListViewModel 
             { 
-                Products = products 
+                Products = pagedProducts.ToList(),
+                PageInfo = pagedProducts
             };
             
             return View(vm);
@@ -30,6 +47,33 @@ namespace ProductInventoryMVC.Controllers
         {
             return View();
         }
+
+
+        //リアルタイム検索用のアクション
+        [HttpGet]
+        public async Task<IActionResult> Search(string search, int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+
+            // APIサービスで全件取得（searchが空の場合）
+            List<ProductWithStockDto> products;
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                products = await _apiService.GetProductsAsync(); // 全件取得メソッド
+            }
+            else
+            {
+                products = await _apiService.SearchProductsAsync(search); // キーワードで絞り込み
+            }
+
+            // ページング対応
+            var pagedList = products.ToPagedList(pageNumber, pageSize);
+
+            // 部分ビューで返す場合
+            return PartialView("Search", pagedList);
+        }
+
 
         //入力された情報を登録するメソッド
         [HttpPost]
@@ -48,13 +92,34 @@ namespace ProductInventoryMVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
         //商品情報を更新するためのビューを表示するメソッド
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _apiService.GetProductAsync(id); 
-            return View(product);
+            ProductDetailDto product = await _apiService.GetProductAsync(id);
+
+            if (product == null)
+                return NotFound();
+
+            ProductDetailViewModel vm = new ProductDetailViewModel
+            {
+                ProductId = product.ProductId,
+                ProductCode = product.ProductCode,
+                ProductName = product.ProductName,
+                UnitPrice = product.UnitPrice,
+                CreatedAt = product.CreatedAt,
+                UpdatedAt = product.UpdatedAt,
+                TotalQuantity = product.TotalQuantity
+            };
+
+            return View(vm);
         }
+
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var product = await _apiService.GetProductAsync(id); 
+        //    return View(product);
+        //}
 
         //商品情報を更新するメソッド
         [HttpPost]
