@@ -1,4 +1,7 @@
 ﻿@model ProductInventory.ViewModel.ProductListViewModel
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
 <link rel="stylesheet" href="~/css/product.css" />
 
 @if (TempData["SuccessMessage"] != null)
@@ -27,7 +30,7 @@
 <div class="header">
     <h2>📦 商品一覧</h2>
     <div class="header-actions">
-        <input type="text" placeholder="商品名で検索..." />
+        <input type="text" id="searchInput" placeholder="商品名で検索..." />
         <a href="@Url.Action("Create", "Product")" class="add-button">＋ 新規登録</a>
     </div>
 </div>
@@ -43,19 +46,28 @@
                 <th>操作</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="productTableBody">
             @foreach (var item in Model.Products)
             {
                 <tr>
                     <td>@item.ProductCode</td>
                     <td>@item.ProductName</td>
                     <td>¥@item.UnitPrice.ToString("N0")</td>
-                    <td>@item.Stock</td> <!-- 在庫を表示 -->
+                    <td style="color:@(item.Stock == 0 ? "red" : "inherit")">
+                        @item.Stock
+                    </td> <!-- 在庫を表示 -->
                     <td>
-                        <a class="action-btn edit" href="@Url.Action("Edit", "Product", new { id = item.ProductId })">編集</a>
-                        <a class="action-btn delete" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"
+                        <a class="btn-pro btn-edit" href="@Url.Action("Edit", "Product", new { id = item.ProductId })">
+                            ✏ 編集
+                        </a>
+
+                        <button class="btn-pro btn-stock" data-id="@item.ProductId">
+                            📦 在庫
+                        </button>
+
+                        <a class="btn-pro btn-delete" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"
                            onclick="return confirm('本当に削除しますか？この商品に紐づく在庫も削除されます。');">
-                            削除
+                            🗑 削除
                         </a>
                     </td>
                 </tr>
@@ -63,4 +75,70 @@
         </tbody>
 
     </table>
+
+    @* 検索処理 *@
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function() {
+            let timer;
+
+            $('#searchInput').on('keyup', function() {
+                clearTimeout(timer);
+                const keyword = $(this).val();
+
+                // 0.5秒待ってから検索（Debounce）
+                timer = setTimeout(function() {
+                    $.get('/Product/Search', { search: keyword }, function(html) {
+                        $('#productTableBody').html(html);
+                        // 検索した場合はページ番号を1に戻す
+                         // $('.pagination-modern').html(''); 必要ならページングもリセット
+                    });
+                 }, 500); //0.5秒
+
+        });
+            });
+    </script> 
+    @* ここまで *@
+
+
+    <div class="pagination-container">
+        <ul class="pagination-modern">
+            @if(Model.PageInfo.PageCount > 1)
+            {    
+                @if (Model.PageInfo.HasPreviousPage)
+                {
+                    <li><a href="@Url.Action("Index", new { page = Model.PageInfo.PageNumber - 1 })" class="page-btn">◀ Prev</a></li>
+                }
+                else
+                {
+                    <li class="disabled"><span class="page-btn">◀ Prev</span></li>
+                }
+
+                @for (int i = 1; i <= Model.PageInfo.PageCount; i++)
+                {
+                    if (i == Model.PageInfo.PageNumber)
+                    {
+                        <li class="active"><span class="page-btn">@i</span></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Index", new { page = i })" class="page-btn">@i</a></li>
+                    }
+                }
+
+                @if (Model.PageInfo.HasNextPage)
+                {
+                    <li><a href="@Url.Action("Index", new { page = Model.PageInfo.PageNumber + 1 })" class="page-btn">Next ▶</a></li>
+                }
+                else
+                {
+                    <li class="disabled"><span class="page-btn">Next ▶</span></li>
+                }
+            }
+            else
+                {
+                    <li class="disabled"><span class="page-btn">1</span></li>
+                }
+        </ul>
+    </div>
 </div>

@@ -1,10 +1,4 @@
 ﻿using MySystem.Dtos;
-using ProductInventory.Models;
-using ProductInventoryMVC.Models;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ProductInventoryMVC.Services
 {
@@ -26,11 +20,44 @@ namespace ProductInventoryMVC.Services
             return products ?? new List<ProductWithStockDto>();
         }
 
-        //商品情報を取得する
-        public async Task<ProductInventory.Models.ProductModel> GetProductAsync(int id)
+        //商品の詳しい情報を単体で取得する
+        public async Task<ProductDetailDto> GetProductAsync(int productId)
         {
-            return await _httpClient.GetFromJsonAsync<ProductInventory.Models.ProductModel>($"/api/products/{id}");
+            return await _httpClient.GetFromJsonAsync<ProductDetailDto>($"/api/products/{productId}");
         }
+
+        //商品の詳しい情報を単体で取得する
+        public async Task<List<ProductWithStockDto>> SearchProductsAsync(string keyword)
+       {
+            //// URLに検索キーワードをクエリパラメータとして付与
+            //string url = $"/api/products/search?search={Uri.EscapeDataString(keyword ?? string.Empty)}";
+
+            //List<ProductWithStockDto> products =  await _httpClient.GetFromJsonAsync<List<ProductWithStockDto>>(url);
+
+            //return products ?? new List<ProductWithStockDto>();
+
+            // BaseAddress は "https://localhost:7196/" を想定
+            string url = $"api/products/search?search={Uri.EscapeDataString(keyword ?? string.Empty)}";
+
+            try
+            {
+                var products = await _httpClient.GetFromJsonAsync<List<ProductWithStockDto>>(url);
+                return products ?? new List<ProductWithStockDto>();
+            }
+            catch (HttpRequestException ex)
+            {
+                // 詳細なエラーを確認する
+                Console.WriteLine($"HTTP Request Error: {ex.Message}");
+                return new List<ProductWithStockDto>();
+            }
+        }
+
+
+        //商品情報を取得する
+        //public async Task<ProductInventory.Models.ProductModel> GetProductAsync(int id)
+        //{
+        //    return await _httpClient.GetFromJsonAsync<ProductInventory.Models.ProductModel>($"/api/products/{id}");
+        //}
 
         //新しい商品を作成する
         public async Task<bool> CreateProductAsync(ProductInventory.Models.ProductModel product)

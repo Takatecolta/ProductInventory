@@ -6,11 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ProductInventoryMVC.Services.ApiService>();
+//builder.Services.AddScoped<ProductInventoryMVC.Services.ApiService>();
 
 builder.Services.AddHttpClient<ApiService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7196/");
+    //client.BaseAddress = new Uri("https://localhost:7043/");
+
 });
 
 

@@ -1,0 +1,62 @@
+﻿@using MySystem.Dtos
+@model X.PagedList.IPagedList<ProductWithStockDto>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.ProductCode</td>
+        <td>@item.ProductName</td>
+        <td>¥@item.UnitPrice.ToString("N0")</td>
+        <td style="color:@(item.Stock == 0 ? "red" : "inherit")">@item.Stock</td>
+        <td>
+            <a class="btn-pro btn-edit" href="@Url.Action("Edit", "Product", new { id = item.ProductId })">✏ 編集</a>
+            <button class="btn-pro btn-stock" data-id="@item.ProductId">📦 在庫</button>
+            <a class="btn-pro btn-delete" href="@Url.Action("Delete", "Product", new { id = item.ProductId })"
+               onclick="return confirm('本当に削除しますか？');">🗑 削除</a>
+        </td>
+    </tr>
+}
+
+
+
+
+@* <div class="pagination-container">
+    <ul class="pagination-modern">
+        @if (Model.PageCount > 1)
+        {
+            @if (Model.HasPreviousPage)
+            {
+                <li><a href="#" data-page="@(Model.PageNumber - 1)" class="page-btn">◀ Prev</a></li>
+            }
+            else
+            {
+                <li class="disabled"><span class="page-btn">◀ Prev</span></li>
+            }
+
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i == Model.PageNumber)
+                {
+                    <li class="active"><span class="page-btn">@i</span></li>
+                }
+                else
+                {
+                    <li><a href="#" data-page="@i" class="page-btn">@i</a></li>
+                }
+            }
+
+            @if (Model.HasNextPage)
+            {
+                <li><a href="#" data-page="@(Model.PageNumber + 1)" class="page-btn">Next ▶</a></li>
+            }
+            else
+            {
+                <li class="disabled"><span class="page-btn">Next ▶</span></li>
+            }
+        }
+        else
+        {
+            <li class="disabled"><span class="page-btn">1</span></li>
+        }
+    </ul>
+</div> *@
